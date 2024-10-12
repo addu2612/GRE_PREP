@@ -8,13 +8,15 @@ const ThreeJSBackground = () => {
 
   useEffect(() => {
     let scene, camera, renderer, particles;
+    let geometry, material; 
+    const mount = mountRef.current;
 
     const init = () => {
       scene = new THREE.Scene();
       camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
       renderer = new THREE.WebGLRenderer({ alpha: true });
       renderer.setSize(window.innerWidth, window.innerHeight);
-      mountRef.current.appendChild(renderer.domElement);
+      mount.appendChild(renderer.domElement);
 
       const geometry = new THREE.BufferGeometry();
       const vertices = [];
@@ -54,8 +56,15 @@ const ThreeJSBackground = () => {
     window.addEventListener('resize', handleResize);
 
     return () => {
-      mountRef.current.removeChild(renderer.domElement);
       window.removeEventListener('resize', handleResize);
+      // Check if the mount and renderer still exist before removing
+      if (mount && renderer.domElement && mount.contains(renderer.domElement)) {
+        mount.removeChild(renderer.domElement);
+      }
+      // Dispose of Three.js objects
+      if (renderer) renderer.dispose();
+      if (geometry) geometry.dispose();
+      if (material) material.dispose();
     };
   }, []);
 

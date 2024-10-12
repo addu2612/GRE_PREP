@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { useCallback } from 'react';
+
 
 const words = [
   { word: "Abate", meaning: "subside, or moderate" },
@@ -362,14 +364,21 @@ const words = [
   { word: "Approbation", meaning: "approval" },
 ];
 
-
 const QuizApp = () => {
   const [currentQuestion, setCurrentQuestion] = useState(null);
   const [options, setOptions] = useState([]);
   const [score, setScore] = useState(0);
   const [questionCount, setQuestionCount] = useState(0);
 
-  const generateQuestion = () => {
+  const shuffle = useCallback((array) => {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  }, []);
+
+  const generateQuestion = useCallback(() => {
     const correctAnswer = words[Math.floor(Math.random() * words.length)];
     const incorrectOptions = [];
     while (incorrectOptions.length < 3) {
@@ -381,15 +390,7 @@ const QuizApp = () => {
     setCurrentQuestion(correctAnswer);
     setOptions(shuffle([...incorrectOptions, correctAnswer]));
     setQuestionCount(prev => prev + 1);
-  };
-
-  const shuffle = (array) => {
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]];
-    }
-    return array;
-  };
+  }, [shuffle]);
 
   const handleAnswer = (selectedWord) => {
     if (selectedWord === currentQuestion.word) {
@@ -406,7 +407,7 @@ const QuizApp = () => {
 
   useEffect(() => {
     generateQuestion();
-  }, []);
+  }, [generateQuestion]);
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-4">
