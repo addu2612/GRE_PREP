@@ -113,6 +113,26 @@ const FancyHomePage = () => {
             </span>
             <span className="absolute inset-0 w-full h-full bg-pink-600 rounded-full opacity-0 group-hover:opacity-10 transition-opacity"></span>
           </button>
+          <button
+            onClick={() => navigate('/sentence-evaluation')}
+            className="group relative px-8 py-4 bg-white text-green-600 rounded-full shadow-lg font-bold text-lg transition-transform transform hover:scale-105 hover:shadow-xl"
+          >
+            <span className="flex items-center justify-center">
+              <HelpCircle className="w-6 h-6 mr-2" />
+              Sentence Evaluation
+            </span>
+            <span className="absolute inset-0 w-full h-full bg-green-600 rounded-full opacity-0 group-hover:opacity-10 transition-opacity"></span>
+          </button>
+          <button
+            onClick={() => navigate('/daily-word-challenge')}
+            className="group relative px-8 py-4 bg-white text-yellow-600 rounded-full shadow-lg font-bold text-lg transition-transform transform hover:scale-105 hover:shadow-xl"
+          >
+            <span className="flex items-center justify-center">
+              <HelpCircle className="w-6 h-6 mr-2" />
+              Daily Word 
+            </span>
+            <span className="absolute inset-0 w-full h-full bg-yellow-600 rounded-full opacity-0 group-hover:opacity-10 transition-opacity"></span>
+          </button>
         </div>
 
         <div className="mt-16 animate-fadeIn animation-delay-900">

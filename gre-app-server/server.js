@@ -43,22 +43,42 @@ app.post('/api/evaluate-sentence', async (req, res) => {
     Usage Correct: [Yes/No]
     Feedback: [Your feedback here]`;
 
+    console.log("Sending prompt to Gemini API:", prompt);
+
     const result = await chatSession.sendMessage(prompt);
-    const evaluation = parseGeminiResponse(result.response.text());
+    console.log("Raw API response:", result);
+
+    if (!result || !result.response || !result.response.text) {
+      throw new Error("Empty or invalid response from Gemini API");
+    }
+
+    const rawResponse = result.response.text();
+    console.log("Raw response text:", rawResponse);
+
+    const evaluation = parseGeminiResponse(rawResponse);
     res.json(evaluation);
   } catch (error) {
-    console.error('Error calling Gemini API:', error);
-    res.status(500).json({ error: 'Failed to evaluate sentence' });
+    console.error('Detailed error:', error);
+    res.status(500).json({ error: 'Failed to evaluate sentence. Please try again.' });
   }
 });
 
 function parseGeminiResponse(response) {
-  const lines = response.split('\n');
+  if (!response || typeof response !== 'string') {
+    throw new Error("Invalid response format from Gemini API");
+  }
+
+  const lines = response.trim().split('\n');
+  
+  if (lines.length < 4) {
+    throw new Error("Unexpected response format from Gemini API");
+  }
+
   return {
-    score: parseInt(lines[0].split(':')[1].trim()),
-    isGrammaticallyCorrect: lines[1].includes('Yes'),
-    isUsageCorrect: lines[2].includes('Yes'),
-    feedback: lines[3].split(':')[1].trim(),
+    score: parseInt(lines[0].split(':')[1].trim()) || 0,
+    isGrammaticallyCorrect: lines[1].toLowerCase().includes('yes'),
+    isUsageCorrect: lines[2].toLowerCase().includes('yes'),
+    feedback: lines[3].split(':').slice(1).join(':').trim() || "No feedback provided",
   };
 }
 
