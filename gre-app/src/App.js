@@ -1,10 +1,10 @@
-// App.js
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, Routes, Link, useNavigate } from 'react-router-dom';
-import { Home, Menu, BookOpen, HelpCircle } from 'lucide-react';
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import { Home, Menu, BookOpen, HelpCircle, Edit } from 'lucide-react';
 import FlashcardApp from './FlashcardApp';
 import QuizApp from './QuizApp';
 import FancyHomePage from './FancyHomePage';
+import SentenceEvaluation from './SentenceEvaluation';
 
 const Sidebar = () => {
   return (
@@ -18,10 +18,12 @@ const Sidebar = () => {
       <Link to="/quiz" className="mb-8">
         <HelpCircle className="w-8 h-8" />
       </Link>
+      <Link to="/sentence-evaluation" className="mb-8">
+        <Edit className="w-8 h-8" />
+      </Link>
     </div>
   );
 };
-
 
 function App() {
   return (
@@ -33,6 +35,7 @@ function App() {
             <Route path="/" element={<FancyHomePage />} />
             <Route path="/flashcards" element={<FlashcardApp />} />
             <Route path="/quiz" element={<QuizApp />} />
+            <Route path="/sentence-evaluation" element={<SentenceEvaluation />} />
           </Routes>
         </div>
       </div>

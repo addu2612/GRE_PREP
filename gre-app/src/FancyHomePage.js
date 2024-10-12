@@ -1,29 +1,73 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { BookOpen, HelpCircle, Zap } from 'lucide-react';
+import * as THREE from 'three';
+
+const ThreeJSBackground = () => {
+  const mountRef = useRef(null);
+
+  useEffect(() => {
+    let scene, camera, renderer, particles;
+
+    const init = () => {
+      scene = new THREE.Scene();
+      camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+      renderer = new THREE.WebGLRenderer({ alpha: true });
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      mountRef.current.appendChild(renderer.domElement);
+
+      const geometry = new THREE.BufferGeometry();
+      const vertices = [];
+
+      for (let i = 0; i < 5000; i++) {
+        const x = (Math.random() - 0.5) * 2000;
+        const y = (Math.random() - 0.5) * 2000;
+        const z = (Math.random() - 0.5) * 2000;
+        vertices.push(x, y, z);
+      }
+
+      geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+
+      const material = new THREE.PointsMaterial({ color: 0xffffff, size: 2 });
+      particles = new THREE.Points(geometry, material);
+      scene.add(particles);
+
+      camera.position.z = 500;
+    };
+
+    const animate = () => {
+      requestAnimationFrame(animate);
+      particles.rotation.x += 0.001;
+      particles.rotation.y += 0.002;
+      renderer.render(scene, camera);
+    };
+
+    init();
+    animate();
+
+    const handleResize = () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      mountRef.current.removeChild(renderer.domElement);
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  return <div ref={mountRef} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }} />;
+};
 
 const FancyHomePage = () => {
   const navigate = useNavigate();
 
   return (
     <div className="relative min-h-screen w-full bg-gradient-to-br from-blue-600 via-purple-500 to-pink-500 overflow-hidden">
-      {/* Background Animation */}
-      <div className="absolute inset-0">
-        {[...Array(20)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute bg-white rounded-full opacity-10 animate-float"
-            style={{
-              width: `${Math.random() * 20 + 10}px`,
-              height: `${Math.random() * 20 + 10}px`,
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDuration: `${Math.random() * 10 + 5}s`,
-              animationDelay: `${Math.random() * 5}s`,
-            }}
-          ></div>
-        ))}
-      </div>
+      <ThreeJSBackground />
 
       {/* Content */}
       <div className="relative z-10 flex flex-col items-center justify-center min-h-screen text-white px-4">
