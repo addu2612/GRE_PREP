@@ -124,7 +124,7 @@ const FancyHomePage = () => {
             <span className="absolute inset-0 w-full h-full bg-green-600 rounded-full opacity-0 group-hover:opacity-10 transition-opacity"></span>
           </button>
           <button
-            onClick={() => navigate('/daily-word-challenge')}
+            onClick={() => navigate('/word-of-the-day')}
             className="group relative px-8 py-4 bg-white text-yellow-600 rounded-full shadow-lg font-bold text-lg transition-transform transform hover:scale-105 hover:shadow-xl"
           >
             <span className="flex items-center justify-center">

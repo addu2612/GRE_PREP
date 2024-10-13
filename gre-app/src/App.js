@@ -5,7 +5,7 @@ import FlashcardApp from './FlashcardApp';
 import QuizApp from './QuizApp';
 import FancyHomePage from './FancyHomePage';
 import SentenceEvaluation from './SentenceEvaluation';
-import DailyWordChallenge from './DailyWordChallenge';
+import WordOfTheDay from './WordOfTheDay';
 
 const Sidebar = () => {
   return (
@@ -22,7 +22,7 @@ const Sidebar = () => {
       <Link to="/sentence-evaluation" className="mb-8">
         <Edit className="w-8 h-8" />
       </Link>
-      <Link to="/daily-word-challenge" className="mb-8">
+      <Link to="/word-of-the-day" className="mb-8">
         <Edit className="w-8 h-8" />
       </Link>
     </div>
@@ -40,7 +40,7 @@ function App() {
             <Route path="/flashcards" element={<FlashcardApp />} />
             <Route path="/quiz" element={<QuizApp />} />
             <Route path="/sentence-evaluation" element={<SentenceEvaluation />} />
-            <Route path="/daily-word-challenge" element={<DailyWordChallenge />} />
+            <Route path="/word-of-the-day" element={<WordOfTheDay />} />
           </Routes>
         </div>
       </div>
