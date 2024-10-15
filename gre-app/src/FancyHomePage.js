@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { BookOpen, HelpCircle, Zap } from 'lucide-react';
+import { BookOpen, HelpCircle, Zap,Calendar, PenIcon, Globe } from 'lucide-react';
 import * as THREE from 'three';
 
 const ThreeJSBackground = () => {
@@ -118,7 +118,7 @@ const FancyHomePage = () => {
             className="group relative px-8 py-4 bg-white text-green-600 rounded-full shadow-lg font-bold text-lg transition-transform transform hover:scale-105 hover:shadow-xl"
           >
             <span className="flex items-center justify-center">
-              <HelpCircle className="w-6 h-6 mr-2" />
+              <PenIcon className="w-6 h-6 mr-2" />
               Sentence Evaluation
             </span>
             <span className="absolute inset-0 w-full h-full bg-green-600 rounded-full opacity-0 group-hover:opacity-10 transition-opacity"></span>
@@ -128,10 +128,20 @@ const FancyHomePage = () => {
             className="group relative px-8 py-4 bg-white text-yellow-600 rounded-full shadow-lg font-bold text-lg transition-transform transform hover:scale-105 hover:shadow-xl"
           >
             <span className="flex items-center justify-center">
-              <HelpCircle className="w-6 h-6 mr-2" />
+              <Calendar className="w-6 h-6 mr-2" />
               Daily Word 
             </span>
             <span className="absolute inset-0 w-full h-full bg-yellow-600 rounded-full opacity-0 group-hover:opacity-10 transition-opacity"></span>
+          </button>
+          <button
+            onClick={() => navigate('/word-sphere')}
+            className="group relative px-8 py-4 bg-white text-red-600 rounded-full shadow-lg font-bold text-lg transition-transform transform hover:scale-105 hover:shadow-xl"
+          >
+            <span className="flex items-center justify-center">
+              <Globe className="w-6 h-6 mr-2" />
+               Word Sphere
+            </span>
+            <span className="absolute inset-0 w-full h-full bg-red-600 rounded-full opacity-0 group-hover:opacity-10 transition-opacity"></span>
           </button>
         </div>
 

@@ -15,7 +15,7 @@ const SentenceEvaluation = () => {
     setIsLoading(true);
     setEvaluation(null);
     try {
-      const response = await fetch('http://localhost:3001/api/evaluate-sentence', {
+      const response = await fetch('http://localhost:3004/api/evaluate-sentence', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ word, sentence }),

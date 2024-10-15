@@ -1,11 +1,12 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
-import { Home, Menu, BookOpen, HelpCircle, Edit } from 'lucide-react';
+import { Home, Menu, BookOpen, HelpCircle, Edit,Calendar,PenIcon,Book,Globe } from 'lucide-react';
 import FlashcardApp from './FlashcardApp';
 import QuizApp from './QuizApp';
 import FancyHomePage from './FancyHomePage';
 import SentenceEvaluation from './SentenceEvaluation';
 import WordOfTheDay from './WordOfTheDay';
+import WordSphere from './WordSphere';
 
 const Sidebar = () => {
   return (
@@ -20,10 +21,13 @@ const Sidebar = () => {
         <HelpCircle className="w-8 h-8" />
       </Link>
       <Link to="/sentence-evaluation" className="mb-8">
-        <Edit className="w-8 h-8" />
+        <PenIcon className="w-8 h-8" />
       </Link>
       <Link to="/word-of-the-day" className="mb-8">
-        <Edit className="w-8 h-8" />
+        <Calendar className="w-8 h-8" />
+      </Link>
+      <Link to="/word-sphere" className="mb-8">
+        <Globe className="w-8 h-8" />
       </Link>
     </div>
   );
@@ -41,6 +45,7 @@ function App() {
             <Route path="/quiz" element={<QuizApp />} />
             <Route path="/sentence-evaluation" element={<SentenceEvaluation />} />
             <Route path="/word-of-the-day" element={<WordOfTheDay />} />
+            <Route path="/word-sphere" element={<WordSphere />} />
           </Routes>
         </div>
       </div>

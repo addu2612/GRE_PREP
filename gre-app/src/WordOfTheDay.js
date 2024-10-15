@@ -10,7 +10,7 @@ const WordOfTheDay = () => {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch(`http://localhost:3002/api/word-of-the-day?t=${Date.now()}`);
+      const response = await fetch(`http://localhost:3004/api/word-of-the-day?t=${Date.now()}`);
       if (!response.ok) {
         throw new Error('Failed to fetch word data');
       }
